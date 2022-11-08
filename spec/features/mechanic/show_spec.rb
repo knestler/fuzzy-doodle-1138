@@ -16,16 +16,16 @@ RSpec.describe 'Mechanic Show Page', type: :feature do
     
     ride_mechanic_1 = RideMechanic.create(mechanic_id: @mechanic_1.id, ride_id: @jaws.id)
     ride_mechanic_2 = RideMechanic.create(mechanic_id: @mechanic_1.id, ride_id: @scrambler.id)
-    ride_mechanic_3 = RideMechanic.create(mechanic_id: @mechanic_2.id, ride_id: @jaws.id)
+    ride_mechanic_3 = RideMechanic.create(mechanic_id: @mechanic_2.id, ride_id: @hurler.id)
     ride_mechanic_4 = RideMechanic.create(mechanic_id: @mechanic_3.id, ride_id: @ferris.id)
   end
   
-  describe 'show page should have mechanic attributes' do
+  describe 'US1 - Mechanic Show Page' do
     it 'should show mechanic name, years of experience, and the names of all rides they are working on' do 
       visit mechanic_path(@mechanic_1)
 save_and_open_page
-      expect(page).to have_content("Charlie Smith")
-      expect(page).to have_content("Experience: 4 years")
+      expect(page).to have_content("Mechanic: Charlie Smith")
+      expect(page).to have_content("Years of Experience: 4")
       expect(page).to have_content("The Scrambler")
       expect(page).to have_content("Jaws")
 
@@ -33,4 +33,19 @@ save_and_open_page
       expect(page).to_not have_content("John Doe")
     end
   end
+
+  describe 'US2 - Add a Ride to a Mechanic' do
+    it 'should fill in that field with an id of an existing ride and bring back to updated show page upon submitting' do 
+      visit mechanic_path(@mechanic_2)
+
+      fill_in('Ride Id:', with: @hurler.id)
+
+      click_button('submit')
+
+      expect(current_path).to eq(mechanic_path(@mechanic_2))
+      expect(page).to have_content("The Hurler")
+
+    end
+  end
+
 end
