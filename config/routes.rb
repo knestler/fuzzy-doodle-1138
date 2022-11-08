@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   resources :mechanics, only: :show do 
     resources :ride_mechanics, only: :create
   end
+
+  resources :amusement_parks, only: :show 
 end
