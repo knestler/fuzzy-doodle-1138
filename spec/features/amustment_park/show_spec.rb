@@ -23,6 +23,7 @@ RSpec.describe 'Amusement Park Show Page', type: :feature do
   describe 'US3 - Amusement Park Show page' do
     it 'Then I see the name and price of admissions for that amusement park' do 
       visit amusement_park_path(@six_flags)
+      
       expect(page).to have_content("Admission: 75")
       expect(page).to have_content("Park: Six Flags")
       
@@ -33,7 +34,7 @@ RSpec.describe 'Amusement Park Show Page', type: :feature do
 
     it "has a unique list of the names of all mechanics that are working on that park's rides" do 
       visit amusement_park_path(@six_flags)
-      save_and_open_page
+
       expect(page).to_not have_content("Charlie Smith")
       expect(page).to have_content("Michael Jones")
       expect(page).to have_content("John Doe")
